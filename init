@@ -1,12 +1,26 @@
--- Loader Credit: https://github.com/1201for/V.G-Hub/blob/main/V.Ghub
+-- Credit: https://github.com/1201for/V.G-Hub/blob/main/V.Ghub
+
+repeat
+	task.wait()
+until game:IsLoaded()
 
 local A = loadstring(game:HttpGet("https://raw.githubusercontent.com/NoobToolzz/SigmaHub/main/SigmaGamesList"))()
 local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
-local SaveManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/SaveManager.lua"))()
-local InterfaceManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/InterfaceManager.lua"))()
+local SaveManager =
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/SaveManager.lua"))()
+local InterfaceManager = loadstring(
+	game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/InterfaceManager.lua")
+)()
 
 for i, v in next, Games do
 	if i == game.GameId or i == game.PlaceId then
 		loadstring(game:HttpGet(v))()
+	else
+		Fluent:Notify({
+			Title = "Notification",
+			Content = "Hold up sigma!",
+			SubContent = "This game is not supported by SigmaHub!",
+			Duration = 10,
+		})
 	end
 end
