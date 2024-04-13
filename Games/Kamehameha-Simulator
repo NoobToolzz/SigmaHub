@@ -13,7 +13,6 @@ local Tabs = {
 	Player = Window:AddTab({ Title = "Player", Icon = "user" }),
 	Training = Window:AddTab({ Title = "Training", Icon = "sword" }),
 	Fun = Window:AddTab({ Title = "Fun", Icon = "wand-2" }),
-	Settings = Window:AddTab({ Title = "Settings", Icon = "settings" }),
 }
 
 local Options = Fluent.Options
