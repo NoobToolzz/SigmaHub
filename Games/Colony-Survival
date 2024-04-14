@@ -22,11 +22,13 @@ else
     )
 
     local Options = Fluent.Options
-
+    
     local Tabs = {
         Home = Window:AddTab({Title = "Home", Icon = "home"}),
         Player = Window:AddTab({Title = "Player", Icon = "user"})
     }
+
+    Window:SelectTab(1)
 
     -- Home
 
