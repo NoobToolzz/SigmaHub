@@ -1,5 +1,3 @@
-local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
-
 if game.PlaceId == 14888386963 then
     Fluent:Notify(
         {
