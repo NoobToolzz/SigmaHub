@@ -1,18 +1,21 @@
-local Window = Fluent:CreateWindow({
-	Title = "Sigma Hub - Kamehameha Simulator",
-	SubTitle = "by Sigma Ohio Rizzler",
-	TabWidth = 160,
-	Size = UDim2.fromOffset(580, 460),
-	Acrylic = true,
-	Theme = "Amethyst",
-	MinimizeKey = Enum.KeyCode.RightControl,
-})
+local Window =
+    Fluent:CreateWindow(
+    {
+        Title = "Sigma Hub",
+        SubTitle = "by Sigma Ohio Rizzler",
+        TabWidth = 160,
+        Size = UDim2.fromOffset(580, 460),
+        Acrylic = true,
+        Theme = "Amethyst",
+        MinimizeKey = Enum.KeyCode.RightControl
+    }
+)
 
 local Tabs = {
-	Home = Window:AddTab({ Title = "Home", Icon = "home" }),
-	Player = Window:AddTab({ Title = "Player", Icon = "user" }),
-	Training = Window:AddTab({ Title = "Training", Icon = "sword" }),
-	Fun = Window:AddTab({ Title = "Fun", Icon = "wand-2" }),
+    Home = Window:AddTab({Title = "Home", Icon = "home"}),
+    Player = Window:AddTab({Title = "Player", Icon = "user"}),
+    Training = Window:AddTab({Title = "Training", Icon = "sword"}),
+    Fun = Window:AddTab({Title = "Fun", Icon = "wand-2"})
 }
 
 local Options = Fluent.Options
@@ -20,185 +23,236 @@ local Options = Fluent.Options
 Window:SelectTab(1) -- Select the home tab
 
 -- Home
-Tabs.Home:AddParagraph({
-	Title = "Welcome to Sigma Hub!",
-	Content = "Enjoy using Sigma hub! I don't know what else to say.",
-})
+Tabs.Home:AddParagraph(
+    {
+        Title = "Welcome to Sigma Hub!",
+        Content = "Enjoy using Sigma hub! Your current game is Kamehameha Simulator."
+    }
+)
 
 -- Main
-Tabs.Player:AddParagraph({
-	Title = "General",
-})
+Tabs.Player:AddParagraph(
+    {
+        Title = "General"
+    }
+)
 
 -- Walkspeed & Jump power
-local walkspeedSlider = Tabs.Player:AddSlider("walkspeedSlider", {
-	Title = "Walkspeed",
-	Description = "Adjust your walkspeed",
-	Default = 16,
-	Min = 1,
-	Max = 500,
-	Rounding = 0,
-	Callback = function(Value)
-		game:GetService("Players").LocalPlayer.Character:WaitForChild("Humanoid").WalkSpeed = Value
-	end,
-})
+local walkspeedSlider =
+    Tabs.Player:AddSlider(
+    "walkspeedSlider",
+    {
+        Title = "Walkspeed",
+        Description = "Adjust your walkspeed",
+        Default = 16,
+        Min = 1,
+        Max = 500,
+        Rounding = 0,
+        Callback = function(Value)
+            game:GetService("Players").LocalPlayer.Character:WaitForChild("Humanoid").WalkSpeed = Value
+        end
+    }
+)
 
-local walkspeedInput = Tabs.Player:AddInput("walkspeedInput", {
-	Title = "Custom Walkspeed",
-	Default = 16,
-	Placeholder = "Enter a number",
-	Numeric = true,
-	Finished = true,
-	Callback = function(Value)
-		game:GetService("Players").LocalPlayer.Character:WaitForChild("Humanoid").WalkSpeed = Value
-	end,
-})
+local walkspeedInput =
+    Tabs.Player:AddInput(
+    "walkspeedInput",
+    {
+        Title = "Custom Walkspeed",
+        Default = 16,
+        Placeholder = "Enter a number",
+        Numeric = true,
+        Finished = true,
+        Callback = function(Value)
+            game:GetService("Players").LocalPlayer.Character:WaitForChild("Humanoid").WalkSpeed = Value
+        end
+    }
+)
 
-local jumpPowerSlider = Tabs.Player:AddSlider("jumpPowerSlider", {
-	Title = "Jump Power",
-	Description = "Adjust your jump power",
-	Default = 50,
-	Min = 0,
-	Max = 500,
-	Rounding = 0,
-	Callback = function(Value)
-		game:GetService("Players").LocalPlayer.Character:WaitForChild("Humanoid").JumpPower = Value
-	end,
-})
+local jumpPowerSlider =
+    Tabs.Player:AddSlider(
+    "jumpPowerSlider",
+    {
+        Title = "Jump Power",
+        Description = "Adjust your jump power",
+        Default = 50,
+        Min = 0,
+        Max = 500,
+        Rounding = 0,
+        Callback = function(Value)
+            game:GetService("Players").LocalPlayer.Character:WaitForChild("Humanoid").JumpPower = Value
+        end
+    }
+)
 
-local jumpPowerInput = Tabs.Player:AddInput("jumpPowerInput", {
-	Title = "Custom jump power",
-	Default = 16,
-	Placeholder = "Enter a number",
-	Numeric = true,
-	Finished = true,
-	Callback = function(Value)
-		game:GetService("Players").LocalPlayer.Character:WaitForChild("Humanoid").JumpPower = Value
-	end,
-})
+local jumpPowerInput =
+    Tabs.Player:AddInput(
+    "jumpPowerInput",
+    {
+        Title = "Custom jump power",
+        Default = 16,
+        Placeholder = "Enter a number",
+        Numeric = true,
+        Finished = true,
+        Callback = function(Value)
+            game:GetService("Players").LocalPlayer.Character:WaitForChild("Humanoid").JumpPower = Value
+        end
+    }
+)
 
 -- Infinite Jump
-local infiniteJumpToggle = Tabs.Player:AddToggle("infiniteJumpToggle", { Title = "Infinite Jump", Default = false })
+local infiniteJumpToggle = Tabs.Player:AddToggle("infiniteJumpToggle", {Title = "Infinite Jump", Default = false})
 
 function infiniteJump()
-	local plr = game:GetService("Players").LocalPlayer
-	local m = plr:GetMouse()
-	m.KeyDown:connect(function(k)
-		if _G.infinjump == true then
-			if k:byte() == 32 then -- Spacebar
-				local humanoid = game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
-				if humanoid then
-					humanoid:ChangeState("Jumping")
-					wait()
-					humanoid:ChangeState("Seated")
-				end
-			end
-		end
-	end)
+    local plr = game:GetService("Players").LocalPlayer
+    local m = plr:GetMouse()
+    m.KeyDown:connect(
+        function(k)
+            if _G.infinjump == true then
+                if k:byte() == 32 then -- Spacebar
+                    local humanoid = game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+                    if humanoid then
+                        humanoid:ChangeState("Jumping")
+                        wait()
+                        humanoid:ChangeState("Seated")
+                    end
+                end
+            end
+        end
+    )
 end
 
-infiniteJumpToggle:OnChanged(function()
-	_G.infinjump = Options.infiniteJumpToggle.Value
-	if _G.infinjump then
-		infiniteJump()
-	else
-		_G.infinjump = false
-		infiniteJump()
-	end
-end)
+infiniteJumpToggle:OnChanged(
+    function()
+        _G.infinjump = Options.infiniteJumpToggle.Value
+        if _G.infinjump then
+            infiniteJump()
+        else
+            _G.infinjump = false
+            infiniteJump()
+        end
+    end
+)
 
 -- Training
 
 -- Auto Train
-Tabs.Training:AddParagraph({
-	Title = "Notice",
-	Content = "Please equip your weapon before enabling auto train.",
-})
+Tabs.Training:AddParagraph(
+    {
+        Title = "Notice",
+        Content = "Please equip your weapon before enabling auto train."
+    }
+)
 
-local autoTrainToggle = Tabs.Training:AddToggle("autoTrainToggle", { Title = "Auto Train", Default = false })
+local autoTrainToggle = Tabs.Training:AddToggle("autoTrainToggle", {Title = "Auto Train", Default = false})
 
 function autoTrain()
-	_G.autotrain = Options.autoTrainToggle.Value
-	while true do
-		if _G.autotrain == false then
-			break
-		end
+    _G.autotrain = Options.autoTrainToggle.Value
+    while true do
+        if _G.autotrain == false then
+            break
+        end
 
-		game:GetService("Players").LocalPlayer.Character.Punch.Event:FireServer(2)
-		wait(0.1)
-	end
+        game:GetService("Players").LocalPlayer.Character.Punch.Event:FireServer(2)
+        wait(0.1)
+    end
 end
 
-autoTrainToggle:OnChanged(function()
-	_G.autotrain = Options.autoTrainToggle.Value
-	if _G.autotrain then
-		autoTrain()
-	else
-		_G.autotrain = false
-		autoTrain()
-	end
-end)
+autoTrainToggle:OnChanged(
+    function()
+        _G.autotrain = Options.autoTrainToggle.Value
+        if _G.autotrain then
+            autoTrain()
+        else
+            _G.autotrain = false
+            autoTrain()
+        end
+    end
+)
 
 -- Power & Rebirth
-Tabs.Training:AddParagraph({
-	Title = "Power",
-})
+Tabs.Training:AddParagraph(
+    {
+        Title = "Power"
+    }
+)
 
 -- Add power & rebirth
-local powerInput = Tabs.Training:AddInput("powerInput", {
-	Title = "Add power",
-	Default = 100000000000000000000000000,
-	Placeholder = "Enter a number",
-	Numeric = true,
-	Finished = true,
-	Callback = function(Value)
-		game:GetService("ReplicatedStorage").Remotes.AddWheelSpinValue:FireServer("Power", Value)
-	end,
-})
+local powerInput =
+    Tabs.Training:AddInput(
+    "powerInput",
+    {
+        Title = "Add power",
+        Default = 100000000000000000000000000,
+        Placeholder = "Enter a number",
+        Numeric = true,
+        Finished = true,
+        Callback = function(Value)
+            game:GetService("ReplicatedStorage").Remotes.AddWheelSpinValue:FireServer("Power", Value)
+        end
+    }
+)
 
-local rebirthInput = Tabs.Training:AddInput("rebirthInput", {
-	Title = "Rebirth amount",
-	Default = 1,
-	Placeholder = "Enter a number",
-	Numeric = true,
-	Finished = true,
-	Callback = function(Value)
-		local Value = tonumber(Value)
-		game:GetService("ReplicatedStorage").Remotes.Rebirth:InvokeServer(unpack({ Value }))
-	end,
-})
+local rebirthInput =
+    Tabs.Training:AddInput(
+    "rebirthInput",
+    {
+        Title = "Rebirth amount",
+        Default = 1,
+        Placeholder = "Enter a number",
+        Numeric = true,
+        Finished = true,
+        Callback = function(Value)
+            local Value = tonumber(Value)
+            game:GetService("ReplicatedStorage").Remotes.Rebirth:InvokeServer(unpack({Value}))
+        end
+    }
+)
 
-Tabs.Training:AddParagraph({
-	Title = "Notice",
-	Content = "You must have enough power to rebirth the amount you entered.",
-})
+Tabs.Training:AddParagraph(
+    {
+        Title = "Notice",
+        Content = "You must have enough power to rebirth the amount you entered."
+    }
+)
 
-Tabs.Training:AddParagraph({
-	Title = "Quick Stats",
-	Content = "If this resets your power, just use it again. It requires you to start from 0 power.",
-})
+Tabs.Training:AddParagraph(
+    {
+        Title = "Quick Stats",
+        Content = "If this resets your power, just use it again. It requires you to start from 0 power."
+    }
+)
 
 -- Quickly reach max power and rebirth amount
-local quickStatsButton = Tabs.Training:AddButton({
-	Title = "Quick Stats",
-	Description = "Get max power and rebirth amount.",
-	Callback = function()
-		game:GetService("ReplicatedStorage").Remotes.AddWheelSpinValue
-			:FireServer("Power", 9990000000000000000000000000999)
-		game:GetService("ReplicatedStorage").Remotes.Rebirth:InvokeServer(10000)
-	end,
-})
+local quickStatsButton =
+    Tabs.Training:AddButton(
+    {
+        Title = "Quick Stats",
+        Description = "Get max power and rebirth amount.",
+        Callback = function()
+            game:GetService("ReplicatedStorage").Remotes.AddWheelSpinValue:FireServer(
+                "Power",
+                9990000000000000000000000000999
+            )
+            game:GetService("ReplicatedStorage").Remotes.Rebirth:InvokeServer(10000)
+        end
+    }
+)
 
 -- Fun
 
 -- Give spins
-local spinInput = Tabs.Fun:AddInput("spinInput", {
-	Title = "Add wheel spins",
-	Default = 1,
-	Placeholder = "Enter a number",
-	Numeric = true,
-	Finished = true,
-	Callback = function(Value)
-		game:GetService("ReplicatedStorage").Remotes.AddWheelSpinValue:FireServer(unpack({ "Spins", Value }))
-	end,
-})
+local spinInput =
+    Tabs.Fun:AddInput(
+    "spinInput",
+    {
+        Title = "Add wheel spins",
+        Default = 1,
+        Placeholder = "Enter a number",
+        Numeric = true,
+        Finished = true,
+        Callback = function(Value)
+            game:GetService("ReplicatedStorage").Remotes.AddWheelSpinValue:FireServer(unpack({"Spins", Value}))
+        end
+    }
+)

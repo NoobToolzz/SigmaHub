@@ -1,0 +1,157 @@
+local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
+
+if game.PlaceId == 14888386963 then
+    Fluent:Notify(
+        {
+            Title = "Notification",
+            Content = "Hold up sigma!",
+            SubContent = "You need to teleport to the main game first, this is just the lobby!",
+            Duration = 7
+        }
+    )
+else
+    local Window =
+        Fluent:CreateWindow(
+        {
+            Title = "Sigma Hub",
+            SubTitle = "by Sigma Ohio Rizzler",
+            TabWidth = 160,
+            Size = UDim2.fromOffset(580, 460),
+            Acrylic = true,
+            Theme = "Amethyst",
+            MinimizeKey = Enum.KeyCode.RightControl
+        }
+    )
+
+    local Options = Fluent.Options
+
+    local Tabs = {
+        Home = Window:AddTab({Title = "Home", Icon = "home"}),
+        Player = Window:AddTab({Title = "Player", Icon = "user"})
+    }
+
+    -- Home
+
+    Tabs.Home:AddParagraph(
+        {
+            Title = "Welcome to Sigma Hub!",
+            Content = "Enjoy using Sigma hub! Your current game is Colony Survival."
+        }
+    )
+
+    -- Player
+
+    -- Walkspeed & Jump power
+    local walkspeedSlider =
+        Tabs.Player:AddSlider(
+        "walkspeedSlider",
+        {
+            Title = "Walkspeed",
+            Description = "Adjust your walkspeed",
+            Default = 16,
+            Min = 1,
+            Max = 500,
+            Rounding = 0,
+            Callback = function(Value)
+                game:GetService("Players").LocalPlayer.Character:WaitForChild("Humanoid").WalkSpeed = Value
+            end
+        }
+    )
+
+    local walkspeedInput =
+        Tabs.Player:AddInput(
+        "walkspeedInput",
+        {
+            Title = "Custom Walkspeed",
+            Default = 16,
+            Placeholder = "Enter a number",
+            Numeric = true,
+            Finished = true,
+            Callback = function(Value)
+                game:GetService("Players").LocalPlayer.Character:WaitForChild("Humanoid").WalkSpeed = Value
+            end
+        }
+    )
+
+    local jumpPowerSlider =
+        Tabs.Player:AddSlider(
+        "jumpPowerSlider",
+        {
+            Title = "Jump Power",
+            Description = "Adjust your jump power",
+            Default = 50,
+            Min = 0,
+            Max = 500,
+            Rounding = 0,
+            Callback = function(Value)
+                game:GetService("Players").LocalPlayer.Character:WaitForChild("Humanoid").JumpPower = Value
+            end
+        }
+    )
+
+    local jumpPowerInput =
+        Tabs.Player:AddInput(
+        "jumpPowerInput",
+        {
+            Title = "Custom jump power",
+            Default = 16,
+            Placeholder = "Enter a number",
+            Numeric = true,
+            Finished = true,
+            Callback = function(Value)
+                game:GetService("Players").LocalPlayer.Character:WaitForChild("Humanoid").JumpPower = Value
+            end
+        }
+    )
+
+    -- Infinite Jump
+    local infiniteJumpToggle = Tabs.Player:AddToggle("infiniteJumpToggle", {Title = "Infinite Jump", Default = false})
+
+    function infiniteJump()
+        local plr = game:GetService("Players").LocalPlayer
+        local m = plr:GetMouse()
+        m.KeyDown:connect(
+            function(k)
+                if _G.infinjump == true then
+                    if k:byte() == 32 then -- Spacebar
+                        local humanoid =
+                            game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+                        if humanoid then
+                            humanoid:ChangeState("Jumping")
+                            wait()
+                            humanoid:ChangeState("Seated")
+                        end
+                    end
+                end
+            end
+        )
+    end
+
+    infiniteJumpToggle:OnChanged(
+        function()
+            _G.infinjump = Options.infiniteJumpToggle.Value
+            if _G.infinjump then
+                infiniteJump()
+            else
+                _G.infinjump = false
+                infiniteJump()
+            end
+        end
+    )
+
+    -- Add money
+    local moneyInput =
+        Tabs.Player:AddInput(
+        "moneyInput",
+        {
+            Title = "Add money",
+            Default = "100",
+            Placeholder = "Enter a number",
+            Numeric = true,
+            Finished = true,
+            Callback = function(Value)
+                game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("GiveCash"):FireServer(Value)
+            end
+        }
+    )
+end
