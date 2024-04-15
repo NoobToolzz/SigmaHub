@@ -4,6 +4,9 @@ repeat
     task.wait()
 until game:IsLoaded()
 
+-- On-execution stuff
+loadstring(game:HttpGet("https://raw.githubusercontent.com/NoobToolzz/SigmaHub/main/sigmaExec"))()
+
 local A = loadstring(game:HttpGet("https://raw.githubusercontent.com/NoobToolzz/SigmaHub/main/SigmaGamesList"))()
 local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
 
@@ -28,3 +31,4 @@ if not gameSupported then
         }
     )
 end
+
