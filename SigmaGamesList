@@ -1,4 +1,5 @@
 getgenv().Games = {
     [15154513235] = "https://raw.githubusercontent.com/NoobToolzz/SigmaHub/main/Games/Kamehameha-Simulator",
     [14888386963] = "https://raw.githubusercontent.com/NoobToolzz/SigmaHub/main/Games/Colony-Survival", [14972061219] = "https://raw.githubusercontent.com/NoobToolzz/SigmaHub/main/Games/Colony-Survival", -- Same game (first is lobby)
+    [14157644155] = "https://raw.githubusercontent.com/NoobToolzz/SigmaHub/main/Games/Money-Grab-Simulator",
 }
